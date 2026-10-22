@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mon profil - Animals TCG</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: menu}"></div>
+
+<main class="container">
+    <h1>Mon profil</h1>
+
+    <div class="message" th:if="${message}" th:text="${message}"></div>
+    <div class="erreur" th:if="${erreur}" th:text="${erreur}"></div>
+
+    <div class="boite" style="padding:20px;max-width:600px;margin:20px auto;">
+        <p>Pseudo : <strong th:text="${joueur.pseudo}"></strong></p>
+        <p>Pièces : <strong th:text="${joueur.pieces}"></strong></p>
+    </div>
+
+    <h2>Modifier mon pseudo</h2>
+    <form class="formulaire" th:action="@{/profil/pseudo}" method="post">
+        <label for="pseudo">Nouveau pseudo</label>
+        <input id="pseudo" type="text" name="pseudo"
+               th:value="${joueur.pseudo}" required>
+        <div class="actions">
+            <button class="btn" type="submit">Modifier</button>
+        </div>
+    </form>
+
+    <h2>Modifier mon mot de passe</h2>
+    <form class="formulaire" th:action="@{/profil/mot-de-passe}" method="post">
+        <label for="ancienMotDePasse">Ancien mot de passe</label>
+        <input id="ancienMotDePasse" type="password"
+               name="ancienMotDePasse" required>
+
+        <label for="nouveauMotDePasse">Nouveau mot de passe</label>
+        <input id="nouveauMotDePasse" type="password"
+               name="nouveauMotDePasse" required>
+
+        <div class="actions">
+            <button class="btn" type="submit">Modifier</button>
+        </div>
+    </form>
+
+    <h2>Supprimer mon compte</h2>
+    <form th:action="@{/profil/supprimer}" method="post"
+          onsubmit="return confirm('Supprimer définitivement ton compte et tes cartes ?');">
+        <button class="btn btn-rouge" type="submit">
+            Supprimer mon compte
+        </button>
+    </form>
+</main>
+</body>
+</html>
