@@ -1,0 +1,98 @@
+/* page statistiques : des boites et des barres comme les barres de PV du jeu */
+
+.stats-chiffres {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 25px 0;
+}
+
+.stats-chiffre {
+    padding: 16px 30px;
+    min-width: 200px;
+}
+
+.stats-chiffre span {
+    display: block;
+}
+
+.stats-chiffre .nombre {
+    font-family: "Press Start 2P", monospace;
+    font-size: 28px;
+    color: #2860b0;
+    margin-bottom: 8px;
+}
+
+.stats-colonnes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stats-colonnes .stats-bloc {
+    flex: 1;
+    min-width: 280px;
+}
+
+.stats-bloc {
+    padding: 10px 22px 18px 22px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.stats-bloc h2 {
+    margin: 10px 0 15px 0;
+}
+
+.ligne {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+.ligne .libelle {
+    width: 110px;
+}
+
+.ligne .compte {
+    width: 30px;
+    text-align: right;
+}
+
+.barre {
+    flex: 1;
+    height: 16px;
+    border: 3px solid #303038;
+    border-radius: 8px;
+    background-color: #e8e8e8;
+    overflow: hidden;
+}
+
+.remplissage {
+    height: 100%;
+    background-color: #2860b0;
+}
+
+/* les raretes sont toujours dans le meme ordre : commune, peu commune, rare, legendaire */
+.raretes:nth-of-type(1) .remplissage { background-color: #48a048; }
+.raretes:nth-of-type(2) .remplissage { background-color: #3070d0; }
+.raretes:nth-of-type(3) .remplissage { background-color: #9048c8; }
+.raretes:nth-of-type(4) .remplissage { background-color: #d89800; }
+
+.doublons {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.doublons li {
+    border: 3px solid #303038;
+    border-radius: 6px;
+    padding: 4px 10px;
+    background-color: #fff8d0;
+}
