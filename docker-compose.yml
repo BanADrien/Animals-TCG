@@ -1,0 +1,24 @@
+# Base de donnees du projet
+# lancer : docker compose up -d   /   arreter : docker compose down
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: animals-tcg-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: animals_tcg
+      MYSQL_USER: tcg
+      MYSQL_PASSWORD: tcg
+    ports:
+      - "3306:3306"
+    volumes:
+      - donnees-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "tcg", "-ptcg"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  donnees-mysql:
