@@ -40,19 +40,6 @@ body {
     color: #f8f8f8;
     text-shadow: 3px 3px 0 #303038;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-/* pokeball */
-.logo::before {
-    content: "";
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    border: 3px solid #303038;
-    background: linear-gradient(to bottom, #e03c3c 42%, #303038 42%, #303038 58%, #f8f8f8 58%);
 }
 
 .nav-links {
