@@ -1,0 +1,356 @@
+@import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "DotGothic16", monospace;
+    font-size: 18px;
+    color: #303038;
+    background-color: #b8e0f8;
+    background-image:
+            linear-gradient(45deg, #a8d4f0 25%, transparent 25%, transparent 75%, #a8d4f0 75%),
+            linear-gradient(45deg, #a8d4f0 25%, transparent 25%, transparent 75%, #a8d4f0 75%);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+}
+
+.carte, .message, .erreur, .formulaire, .boite {
+    background-color: #f8f8f8;
+    border: 4px solid #303038;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 3px #a8c8e8, 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+    background-color: #e03c3c;
+    border-bottom: 5px solid #303038;
+    padding: 14px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    font-family: "Press Start 2P", monospace;
+    font-size: 16px;
+    color: #f8f8f8;
+    text-shadow: 3px 3px 0 #303038;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* pokeball */
+.logo::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 3px solid #303038;
+    background: linear-gradient(to bottom, #e03c3c 42%, #303038 42%, #303038 58%, #f8f8f8 58%);
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.nav-links a {
+    color: #f8f8f8;
+    text-decoration: none;
+    padding: 4px 8px 4px 22px;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: #f8d038;
+}
+
+/* la fleche de selection des menus pokemon */
+.nav-links a:hover::before,
+.btn:hover::before {
+    content: "\25B6";
+    position: absolute;
+    left: 6px;
+    font-size: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+h1, h2 {
+    font-family: "Press Start 2P", monospace;
+    font-weight: normal;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 22px;
+    color: #f8d038;
+    text-shadow: 3px 3px 0 #303038, -2px -2px 0 #303038, 2px -2px 0 #303038, -2px 2px 0 #303038;
+}
+
+h2 {
+    font-size: 15px;
+    color: #2860b0;
+    margin-top: 35px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* bouton jaune par defaut */
+.btn {
+    position: relative;
+    display: inline-block;
+    padding: 12px 22px 12px 30px;
+    background-color: #f8d038;
+    color: #303038;
+    font-family: "Press Start 2P", monospace;
+    font-size: 11px;
+    text-decoration: none;
+    border: 4px solid #303038;
+    border-radius: 8px;
+    box-shadow: inset 0 0 0 3px #fff0a0, 0 4px 0 #303038;
+    cursor: pointer;
+}
+
+.btn:hover::before {
+    left: 10px;
+    font-size: 10px;
+}
+
+.btn:active {
+    transform: translateY(4px);
+    box-shadow: inset 0 0 0 3px #fff0a0;
+}
+
+.btn-rouge {
+    background-color: #e03c3c;
+    color: #f8f8f8;
+    box-shadow: inset 0 0 0 3px #f08878, 0 4px 0 #303038;
+}
+
+.btn-rouge:active {
+    box-shadow: inset 0 0 0 3px #f08878;
+}
+
+.message, .erreur {
+    padding: 14px 40px 14px 18px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: left;
+    position: relative;
+}
+
+/* fleche qui clignote a la fin du texte, comme quand un pnj parle */
+.message::after {
+    content: "\25BC";
+    position: absolute;
+    right: 16px;
+    bottom: 10px;
+    font-size: 12px;
+    color: #e03c3c;
+    animation: clignote 1s steps(1) infinite;
+}
+
+@keyframes clignote {
+    50% { opacity: 0; }
+}
+
+.erreur {
+    color: #c02820;
+    border-color: #c02820;
+    box-shadow: inset 0 0 0 3px #f8c0b8, 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* formulaires en boite (inscription, connexion, recherche) : class="formulaire" */
+.formulaire {
+    display: inline-block;
+    padding: 18px 24px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-top: 8px;
+}
+
+input, select {
+    font-family: "DotGothic16", monospace;
+    font-size: 17px;
+    padding: 6px 8px;
+    border: 3px solid #303038;
+    border-radius: 4px;
+    background-color: #fff;
+    margin: 4px 4px 4px 0;
+}
+
+input:focus, select:focus {
+    outline: none;
+    background-color: #fff8d0;
+}
+
+/* ===== cartes ===== */
+
+.cartes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 25px;
+}
+
+/* chaque rarete a sa couleur : vert, bleu, violet, or */
+.carte {
+    --couleur: #48a048;
+    --clair: #d0f0c8;
+    position: relative;
+    overflow: hidden;
+    width: 195px;
+    padding: 10px;
+    text-align: left;
+    border-color: var(--couleur);
+    box-shadow: inset 0 0 0 3px var(--clair), 0 4px 0 rgba(0, 0, 0, 0.25);
+    transition: transform 0.1s;
+}
+
+.carte.peu-commune {
+    --couleur: #3070d0;
+    --clair: #c8dcf8;
+}
+
+.carte.rare {
+    --couleur: #9048c8;
+    --clair: #e4d0f8;
+}
+
+.carte.legendaire {
+    --couleur: #d89800;
+    --clair: #f8e488;
+    box-shadow: inset 0 0 0 3px var(--clair), 0 0 14px #f8c838;
+}
+
+.carte:hover {
+    transform: translateY(-4px);
+}
+
+/* bande de couleur avec le nom, comme en haut des vraies cartes */
+.carte-nom {
+    background-color: var(--clair);
+    border-radius: 4px;
+    padding: 3px 7px;
+    font-size: 18px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carte-photo {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    border: 3px solid var(--couleur);
+    border-radius: 4px;
+    margin: 6px 0;
+    background-color: #c8d0d8;
+}
+
+.carte-latin {
+    font-size: 14px;
+    color: #686870;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carte-obs {
+    font-size: 14px;
+    color: #686870;
+    margin: 0;
+}
+
+.carte-bas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 2px dashed var(--clair);
+}
+
+.type {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.rarete {
+    font-size: 14px;
+    white-space: nowrap;
+    color: var(--couleur);
+}
+
+/* symboles de rarete du vrai jeu */
+.rarete.commune::after { content: " \25CF"; }
+.rarete.peu-commune::after { content: " \25C6"; }
+.rarete.rare::after { content: " \2605"; }
+.rarete.legendaire::after { content: " \2605\2605"; }
+
+/* reflet qui passe sur les cartes legendaires */
+.carte.legendaire::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    transform: skewX(-20deg);
+    animation: reflet 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes reflet {
+    0% { left: -60%; }
+    40% { left: 130%; }
+    100% { left: 130%; }
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+
+    .actions {
+        flex-wrap: wrap;
+    }
+
+    .carte {
+        width: 170px;
+    }
+}
