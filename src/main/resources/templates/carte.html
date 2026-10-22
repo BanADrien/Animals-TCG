@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Détail de carte - Animals TCG</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: menu}"></div>
+
+<main class="container">
+    <h1>Détail de la carte</h1>
+
+    <div class="erreur" th:if="${erreur}" th:text="${erreur}"></div>
+
+    <div class="cartes">
+        <article class="carte"
+                 th:classappend="${carte.rarete == 'Peu commune' ? 'peu-commune' :
+                     (carte.rarete == 'Rare' ? 'rare' :
+                     (carte.rarete == 'Légendaire' ? 'legendaire' : ''))}">
+
+            <p class="carte-nom" th:text="${carte.nom}"></p>
+
+            <img class="carte-photo"
+                 th:src="${carte.photoUrl}"
+                 th:alt="${carte.nom}">
+
+            <p class="carte-latin"
+               th:text="${carte.nomScientifique}"></p>
+
+            <p class="carte-obs">
+                Observations :
+                <span th:text="${carte.observations}"></span>
+            </p>
+
+            <div class="carte-bas">
+                <span class="type" th:text="${carte.type}"></span>
+                <span class="rarete" th:text="${carte.rarete}"></span>
+            </div>
+        </article>
+    </div>
+
+    <p th:if="${doublon}">Tu possèdes plusieurs exemplaires de cet animal.</p>
+    <p th:unless="${doublon}">C'est ton seul exemplaire de cet animal.</p>
+
+    <form th:action="@{/collection/{id}/favori(id=${carte.id})}"
+          method="post">
+        <button class="btn" type="submit"
+                th:text="${carte.favori ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
+        </button>
+    </form>
+
+    <form th:if="${doublon}"
+          th:action="@{/collection/{id}/vendre(id=${carte.id})}"
+          method="post"
+          onsubmit="return confirm('Vendre ce doublon ?');"
+          style="margin-top:20px;">
+        <button class="btn btn-rouge" type="submit">
+            Vendre pour <span th:text="${prixVente}"></span> pièces
+        </button>
+    </form>
+
+    <p style="margin-top:30px;">
+        <a class="btn" th:href="@{/collection}">Retour à la collection</a>
+    </p>
+</main>
+</body>
+</html>

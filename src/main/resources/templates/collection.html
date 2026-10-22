@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ma collection - Animals TCG</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments :: menu}"></div>
+
+<main class="container">
+    <h1>Ma collection</h1>
+
+    <p>
+        Dresseur : <strong th:text="${joueur.pseudo}"></strong>
+        — Pièces : <strong th:text="${joueur.pieces}"></strong>
+    </p>
+
+    <p>
+        Nombre total de cartes :
+        <strong th:text="${total}"></strong>
+    </p>
+
+    <div class="message" th:if="${message}" th:text="${message}"></div>
+    <div class="erreur" th:if="${erreur}" th:text="${erreur}"></div>
+
+    <!-- Les filtres peuvent être combinés -->
+    <form class="formulaire" method="get" th:action="@{/collection}">
+        <label for="recherche">Rechercher un animal</label>
+        <input id="recherche" type="text" name="recherche"
+               placeholder="Nom français ou scientifique"
+               th:value="${recherche}">
+
+        <label for="type">Type</label>
+        <select id="type" name="type">
+            <option value="">Tous les types</option>
+            <option th:each="t : ${ {'Mammifère','Oiseau','Reptile','Amphibien','Poisson','Insecte','Arachnide','Mollusque','Autre'} }"
+                    th:value="${t}"
+                    th:text="${t}"
+                    th:selected="${t == typeChoisi}">
+            </option>
+        </select>
+
+        <label for="rarete">Rareté</label>
+        <select id="rarete" name="rarete">
+            <option value="">Toutes les raretés</option>
+            <option th:each="r : ${ {'Commune','Peu commune','Rare','Légendaire'} }"
+                    th:value="${r}"
+                    th:text="${r}"
+                    th:selected="${r == rareteChoisie}">
+            </option>
+        </select>
+
+        <label>
+            <input type="checkbox" name="favoris" value="true"
+                   th:checked="${favorisChoisis}">
+            Favoris uniquement
+        </label>
+
+        <div class="actions">
+            <button class="btn" type="submit">Filtrer</button>
+            <a class="btn" th:href="@{/collection}">Réinitialiser</a>
+        </div>
+    </form>
+
+    <p th:if="${#lists.isEmpty(cartes)}" class="boite"
+       style="padding:20px;">
+        Aucune carte trouvée. Ouvre un booster pour commencer !
+    </p>
+
+    <div class="cartes">
+        <a th:each="carte : ${cartes}"
+           th:href="@{/collection/{id}(id=${carte.id})}"
+           style="text-decoration:none;color:inherit;">
+
+            <article class="carte"
+                     th:classappend="${carte.rarete == 'Peu commune' ? 'peu-commune' :
+                         (carte.rarete == 'Rare' ? 'rare' :
+                         (carte.rarete == 'Légendaire' ? 'legendaire' : ''))}">
+
+                <p class="carte-nom" th:text="${carte.nom}"></p>
+
+                <img class="carte-photo"
+                     th:src="${carte.photoUrl}"
+                     th:alt="${carte.nom}">
+
+                <p class="carte-latin"
+                   th:text="${carte.nomScientifique}"></p>
+
+                <div class="carte-bas">
+                    <span class="type" th:text="${carte.type}"></span>
+                    <span class="rarete" th:text="${carte.rarete}"></span>
+                </div>
+
+                <p th:if="${carte.favori}">★ Favori</p>
+            </article>
+        </a>
+    </div>
+</main>
+</body>
+</html>
