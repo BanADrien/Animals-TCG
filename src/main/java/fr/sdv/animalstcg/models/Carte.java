@@ -89,6 +89,23 @@ public class Carte {
 		this.rarete = rarete;
 	}
 
+	// nom de la classe CSS de la rarete, pour la couleur de la carte ("Peu commune" -> "peu-commune")
+	public String getRareteCss() {
+		if (rarete == null) {
+			return "commune";
+		}
+		switch (rarete) {
+			case "Peu commune":
+				return "peu-commune";
+			case "Rare":
+				return "rare";
+			case "Légendaire":
+				return "legendaire";
+			default:
+				return "commune";
+		}
+	}
+
 	public String getPhotoUrl() {
 		return photoUrl;
 	}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Booster - Animals TCG</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/booster.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments :: menu}"></div>
+
+<main class="container">
+    <h1>Ouvre un booster !</h1>
+
+    <p>Tu as <b th:text="${joueur.pieces}">0</b> pièces. Un booster coûte <b th:text="${prix}">50</b> pièces.</p>
+
+    <div class="message" th:if="${message}" th:text="${message}"></div>
+    <div class="erreur" th:if="${erreur}" th:text="${erreur}"></div>
+
+    <form id="form-booster" class="actions" method="post" th:action="@{/booster/ouvrir}">
+        <button id="bouton-ouvrir" class="btn" type="submit" th:disabled="${joueur.pieces < prix}">Ouvrir un booster</button>
+    </form>
+    <p th:if="${joueur.pieces < prix}">Plus assez de pièces... vends tes doublons dans ta collection !</p>
+
+    <!-- les 5 cartes qu'on vient de tirer -->
+    <div class="cartes" th:if="${cartes}">
+        <div class="carte" th:each="carte : ${cartes}" th:classappend="${carte.rareteCss}">
+            <div class="carte-interieur">
+                <p class="carte-nom" th:text="${carte.nom}">Nom</p>
+                <img class="carte-photo" th:src="${carte.photoUrl}" th:alt="${carte.nom}">
+                <p class="carte-latin" th:text="${carte.nomScientifique}">Nom latin</p>
+                <p class="carte-obs" th:text="${#numbers.formatInteger(carte.observations, 1, 'WHITESPACE')} + ' observations'">0 observations</p>
+                <div class="carte-bas">
+                    <span class="type" th:text="${carte.type}">Type</span>
+                    <span class="rarete" th:classappend="${carte.rareteCss}" th:text="${carte.rarete}">Commune</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // l'API met environ 2 secondes a repondre, on previent le joueur
+    document.getElementById("form-booster").addEventListener("submit", function () {
+        var bouton = document.getElementById("bouton-ouvrir");
+        bouton.textContent = "Ouverture...";
+        bouton.style.pointerEvents = "none";
+    });
+</script>
+
+</body>
+</html>
