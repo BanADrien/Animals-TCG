@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accueil - Animals TCG</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- Insertion du menu commun -->
+<div th:replace="~{fragments :: menu}"></div>
+
+<main class="container">
+    <h1>Bienvenue sur Animals TCG !</h1>
+
+    <p>Collectionne des cartes d'animaux et découvre de nouvelles espèces !</p>
+
+    <div class="actions">
+        <a class="btn" th:href="@{/inscription}">S'inscrire</a>
+        <a class="btn" th:href="@{/connexion}">Se connecter</a>
+    </div>
+</main>
+
+</body>
+</html>
