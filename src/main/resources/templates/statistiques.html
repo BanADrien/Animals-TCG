@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Statistiques - Animals TCG</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/statistiques.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments :: menu}"></div>
+
+<main class="container">
+    <h1>Mes statistiques</h1>
+
+    <!-- collection vide -->
+    <div th:if="${total == 0}">
+        <div class="message">Tu n'as pas encore de cartes... ouvre ton premier booster !</div>
+        <div class="actions">
+            <a class="btn" th:href="@{/booster}">Ouvrir un booster</a>
+        </div>
+    </div>
+
+    <div th:if="${total > 0}">
+        <!-- les deux gros chiffres -->
+        <div class="stats-chiffres">
+            <div class="boite stats-chiffre">
+                <span class="nombre" th:text="${total}">0</span>
+                <span>cartes</span>
+            </div>
+            <div class="boite stats-chiffre">
+                <span class="nombre" th:text="${especes}">0</span>
+                <span>espèces différentes</span>
+            </div>
+        </div>
+
+        <div class="stats-colonnes">
+            <!-- une barre par rarete, comme les barres de PV -->
+            <div class="boite stats-bloc">
+                <h2>Par rareté</h2>
+                <div class="ligne raretes" th:each="r : ${parRarete}">
+                    <span class="libelle" th:text="${r.key}">Commune</span>
+                    <div class="barre">
+                        <div class="remplissage" th:style="'width:' + ${r.value * 100 / total} + '%'"></div>
+                    </div>
+                    <span class="compte" th:text="${r.value}">0</span>
+                </div>
+            </div>
+
+            <div class="boite stats-bloc">
+                <h2>Par type</h2>
+                <div class="ligne" th:each="t : ${parType}">
+                    <span class="libelle" th:text="${t.key}">Oiseau</span>
+                    <div class="barre">
+                        <div class="remplissage" th:style="'width:' + ${t.value * 100 / total} + '%'"></div>
+                    </div>
+                    <span class="compte" th:text="${t.value}">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="boite stats-bloc">
+            <h2>Mes doublons</h2>
+            <p th:if="${doublons.isEmpty()}">Aucun doublon pour l'instant.</p>
+            <ul class="doublons" th:if="${!doublons.isEmpty()}">
+                <li th:each="d : ${doublons}">
+                    <span th:text="${d.key}">Renard roux</span>
+                    <b th:text="'x' + ${d.value}">x2</b>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
